@@ -1,0 +1,76 @@
+[project]
+name = "paddle-guard-benchmark"
+version = "0.1.0"
+description = "PaddleSOT Guard Benchmark"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "paddlepaddle"
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    # Pyflakes
+    "F",
+    # Pycodestyle
+    "E",
+    "W",
+    # Isort
+    "I",
+    # Pyupgrade
+    "UP",
+    # Flake8
+    "B",
+    "C4",
+    "YTT",
+    "TID",
+    "PTH",
+    # Pygrep-hooks
+    "PGH",
+    # Ruff-specific rules
+    "RUF",
+]
+ignore = ["F841", "PGH003", "UP038", "B008", "RUF001", "RUF003"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "I002"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["recognize"]
+required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.uv]
+environments = [
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+]
+dev-dependencies = [
+    "ruff",
+    "pytest",
+    "pytest-codspeed",
+]
+
+[tool.uv.sources]
+paddlepaddle = { index = "paddlepaddle" }
+
+[[tool.uv.index]]
+name = "paddlepaddle"
+url = "https://www.paddlepaddle.org.cn/packages/nightly/cpu/"
+explicit = true
+
+[tool.pdm.build]
+package-dir = "src"
+source-includes = ["tests", "README.md"]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"

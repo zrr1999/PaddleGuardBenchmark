@@ -1,0 +1,28 @@
+name: PaddleSOT Guard Benchmark Test
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 14 * * *"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Just 📦
+        uses: extractions/setup-just@v2
+      - name: Install the latest version of uv 📦
+        uses: astral-sh/setup-uv@v3
+      - name: Install python 📦
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies 📦
+        run: just install
+      - name: Run tests and benchmarks ✅
+        uses: CodSpeedHQ/action@v3
+        with:
+          run: just test
