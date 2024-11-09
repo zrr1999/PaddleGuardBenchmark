@@ -12,7 +12,7 @@ pyright:
     uv run pyright .
 
 test:
-    uv run pytest --codspeed
+    uv run pytest
 
 check:
     just ruff

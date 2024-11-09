@@ -54,9 +54,9 @@ environments = [
     "sys_platform == 'linux' and platform_machine == 'x86_64'",
 ]
 dev-dependencies = [
-    "ruff",
-    "pytest",
-    "pytest-codspeed",
+    "pytest>=8.3.3",
+    "pytest-benchmark[histogram]>=5.1.0",
+    "ruff>=0.7.2",
 ]
 
 [tool.uv.sources]
@@ -66,6 +66,13 @@ paddlepaddle = { index = "paddlepaddle" }
 name = "paddlepaddle"
 url = "https://www.paddlepaddle.org.cn/packages/nightly/cpu/"
 explicit = true
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
 
 [tool.pdm.build]
 package-dir = "src"
