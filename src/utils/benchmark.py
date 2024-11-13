@@ -6,6 +6,7 @@ from typing import Any
 import numpy as np
 import paddle
 from paddle.jit.sot import symbolic_translate
+from paddle.jit.sot.utils import faster_guard_guard
 
 
 def benchmark_fn[**P](
@@ -24,9 +25,14 @@ def benchmark_fn[**P](
         for _ in range(warmup):
             sym_fn(*inputs, **kwargs)
 
-        @benchmark
         def benchmark_fn():
             for _ in range(repeat):
                 sym_fn(*inputs, **kwargs)
+
+        with faster_guard_guard(False):
+            benchmark(benchmark_fn)
+
+        with faster_guard_guard(True):
+            benchmark(benchmark_fn)
 
     return wrapper

@@ -1,6 +1,9 @@
 install:
     uv sync --all-extras --dev
 
+upgrade:
+    uv sync --all-extras --dev -U
+
 install-tuna:
     uv sync --all-extras --dev --index-url https://pypi.tuna.tsinghua.edu.cn/simple
 

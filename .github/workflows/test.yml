@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install dependencies 📦
-        run: just install
+        run: just upgrade
       - name: Run tests and benchmarks ✅
         env:
           DATE: ${{ steps.get_date.outputs.DATE }}
